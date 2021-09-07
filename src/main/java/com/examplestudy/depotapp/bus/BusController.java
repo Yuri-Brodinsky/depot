@@ -1,8 +1,6 @@
 package com.examplestudy.depotapp.bus;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -18,5 +16,21 @@ public class BusController {
     @GetMapping
     public List<Bus> getAll() {
         return service.findAll();
+    }
+    @GetMapping("/{id}")
+    public Bus getById(@PathVariable Long id) {
+        return service.findById(id);
+    }
+    @PostMapping("/new")
+    public void add(@RequestBody Bus bus){
+        service.add(bus);
+    }
+    @PutMapping("/{id}")
+    public void update(@RequestBody Bus bus){
+        service.update(bus);
+    }
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id){
+        service.delete(id);
     }
 }

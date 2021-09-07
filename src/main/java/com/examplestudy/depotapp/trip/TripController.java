@@ -1,8 +1,6 @@
 package com.examplestudy.depotapp.trip;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,5 +14,21 @@ public class TripController {
     @GetMapping
     public List<Trip> getAll(){
         return service.findAll();
+    }
+    @GetMapping("/{id}")
+    public Trip getById(@PathVariable Long id){
+        return service.getById(id);
+    }
+    @PostMapping("/new")
+    public void add(@RequestBody Trip trip){
+        service.add(trip);
+    }
+    @PutMapping("/{id}")
+    public void update(@RequestBody Trip trip){
+        service.update(trip);
+    }
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id){
+        service.delete(id);
     }
 }

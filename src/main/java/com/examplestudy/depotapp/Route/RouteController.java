@@ -1,8 +1,6 @@
 package com.examplestudy.depotapp.Route;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,5 +14,21 @@ public class RouteController {
     @GetMapping
     public List<Route> getAll(){
         return service.findAll();
+    }
+    @GetMapping("/{id}")
+    public Route getById(@PathVariable Long id){
+        return service.getById(id);
+    }
+    @PostMapping("/new")
+    public void add(@RequestBody Route route){
+        service.add(route);
+    }
+    @PutMapping("/{id}")
+    public void update(@RequestBody Route route){
+        service.update(route);
+    }
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id){
+        service.delete(id);
     }
 }
