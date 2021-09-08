@@ -33,6 +33,6 @@ public class RoutService {
         }
     }
     public void delete(Long id){
-        repository.getById(id);
+        repository.deleteById(id);
     }
 }
