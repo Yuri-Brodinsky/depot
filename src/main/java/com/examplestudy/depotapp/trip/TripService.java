@@ -1,9 +1,14 @@
 package com.examplestudy.depotapp.trip;
 
+import com.examplestudy.depotapp.Route.Route;
+import com.examplestudy.depotapp.user.User;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class TripService {
@@ -20,6 +25,7 @@ public class TripService {
     public void add(Trip trip){
         repository.save(trip);
     }
+
     public void update(Trip trip){
         Optional<Trip> raw = repository.findById(trip.getId());
         if(raw.isPresent()){
@@ -36,5 +42,28 @@ public class TripService {
     }
     public void delete(Long id){
         repository.deleteById(id);
+    }
+
+    public List<Trip> findAllByRouteAndDate(Route route, LocalDate date){
+        return repository.findAllByRouteAndDate(route,date);
+    }
+
+    public void addPassenger(@PathVariable Long tripId, User user){
+        Trip trip =repository.findById(tripId).get();
+        trip.addUser(user);
+        trip.setTicketsSale(trip.getTicketsSale()+1);
+        repository.save(trip);
+    }
+    public List<TripForPassengers> getTripsForPassenger(Route route, LocalDate date){
+        List<Trip> trips = findAllByRouteAndDate(route,date);
+        return trips.stream().map(e->new TripForPassengers(
+                e.getId(),
+                e.getRoute().toString(),
+                e.getDepartureTime(),
+                (""+e.getRoute().getTimeTravel()),
+                e.getRoute().getPathLength()*e.getBus().getCostPerKilometer(),
+                e.getBus().getCapacity()-e.getTicketsSale()
+
+        )).collect(Collectors.toList());
     }
 }

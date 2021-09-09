@@ -3,6 +3,7 @@ package com.examplestudy.depotapp.trip;
 import com.examplestudy.depotapp.Route.Route;
 import com.examplestudy.depotapp.bus.Bus;
 import com.examplestudy.depotapp.driver.Driver;
+import com.examplestudy.depotapp.user.User;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,6 +37,17 @@ public class Trip {
     private int ticketsSale;
     @Column(name="departure_time")
     private String departureTime;
+    @ManyToMany(fetch = FetchType.EAGER )
+    @JoinTable(
+            name = "users_trips",
+            joinColumns = @JoinColumn(name="trip_id"),
+            inverseJoinColumns = @JoinColumn(name="user_id")
+
+    )
+    private Set<User> users;
+    public void addUser(User user){
+        users.add(user);
+    }
     public Trip(Route route, LocalDate date, Bus bus, Driver driver, int ticketsSale, int hour, int min){
         this.route = route;
         this.date = date;
