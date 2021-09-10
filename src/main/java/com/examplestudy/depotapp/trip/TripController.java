@@ -1,5 +1,6 @@
 package com.examplestudy.depotapp.trip;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,6 +13,7 @@ public class TripController {
         this.service = service;
     }
     @GetMapping
+    @PreAuthorize("hasAuthority('depot')")
     public List<Trip> getAll(){
         return service.findAll();
     }
