@@ -28,23 +28,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers(HttpMethod.GET,"/api/**").hasAnyAuthority(Permission.CLIENTS.getPermission())
-                .antMatchers(HttpMethod.POST,"/api/**").hasAnyAuthority(Permission.DEPOT.getPermission())
-                .antMatchers(HttpMethod.DELETE,"/api/**").hasAnyAuthority(Permission.DEPOT.getPermission())
-                .antMatchers(HttpMethod.PUT,"/api/**").hasAnyAuthority(Permission.DEPOT.getPermission())
                 .anyRequest()
                 .authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/auth/login").permitAll()
-                .defaultSuccessUrl("/auth/success")
+                .defaultSuccessUrl("/auth/success").permitAll()
                 .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout","POST"))
                 .invalidateHttpSession(true)
                 .clearAuthentication(true)
                 .deleteCookies("JSESSIONID")
-                .logoutSuccessUrl("/auth/login");
+                .logoutSuccessUrl("/auth/login").permitAll();
     }
 
 
