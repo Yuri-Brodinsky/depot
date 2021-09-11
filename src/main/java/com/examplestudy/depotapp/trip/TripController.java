@@ -1,6 +1,9 @@
 package com.examplestudy.depotapp.trip;
 
+import com.examplestudy.depotapp.user.User;
+import com.examplestudy.depotapp.user.UserRepository;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,5 +36,10 @@ public class TripController {
     public void delete(@PathVariable Long id){
         service.delete(id);
     }
+    @PostMapping("/v1/{id}/buy")
+    public void addOrder(@PathVariable Long id){
+      service.addPassenger(id);
+    }
+
 
 }

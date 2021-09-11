@@ -4,18 +4,18 @@ import com.examplestudy.depotapp.trip.Trip;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+
 
 import javax.persistence.*;
-import java.util.Collection;
+
 import java.util.Set;
 
 @Entity
+@Table(name = "depot_user")
 @Getter
 @Setter
 @NoArgsConstructor
-public class User implements UserDetails {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
@@ -33,34 +33,8 @@ public class User implements UserDetails {
         this.password = password;
         this.role = role;
     }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return role.getAuthority();
+    public void addTrip(Trip trip){
+        trips.add(trip);
     }
 
-    @Override
-    public String getUsername() {
-        return login;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 }
