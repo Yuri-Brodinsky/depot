@@ -36,5 +36,6 @@ public class User {
     public void addTrip(Trip trip){
         trips.add(trip);
     }
+    public void remove(Trip trip){trips.remove(trip);}
 
 }

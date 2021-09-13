@@ -48,6 +48,7 @@ public class Trip {
     public void addUser(User user){
         users.add(user);
     }
+    public void removeUser(User user){users.remove(user);}
     public Trip(Route route, LocalDate date, Bus bus, Driver driver, int ticketsSale, int hour, int min){
         this.route = route;
         this.date = date;

@@ -65,8 +65,22 @@ public class TripService {
         repository.save(trip);
         userRepository.save(user);
     }
+    public void removePassenger(Long tripId){
+        Trip trip =repository.findById(tripId).get();
+        SecurityUser securityUser = (SecurityUser) SecurityContextHolder.
+                getContext().getAuthentication().getPrincipal();
+        Long userId = securityUser.getId();
+        User user = userRepository.findById(userId).get();
+        trip.removeUser(user);
+        trip.setTicketsSale(trip.getTicketsSale()-1);
+        user.remove(trip);
+        repository.save(trip);
+        userRepository.save(user);
+    }
     public List<TripForPassengers> getTripsForPassenger(Route route, LocalDate date){
-        List<Trip> trips = findAllByRouteAndDate(route,date);
+        List<Trip> trips = null;
+        if(route!=null&&date!=null) { trips = findAllByRouteAndDate(route,date);}
+        else trips = repository.findAll();
         return trips.stream().map(e->new TripForPassengers(
                 e.getId(),
                 e.getRoute().toString(),

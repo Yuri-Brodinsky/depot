@@ -28,5 +28,8 @@ public class Route {
         this.pathLength = pathLength;
         this.timeTravel = timeTravel;
     }
+    public String toString(){
+        return from+"-"+to;
+    }
 }
 

@@ -13,8 +13,8 @@ public class AuthController {
     public String getLoginPage(){
         return "login";
     }
-    @PostMapping("/success")
-    public String getSuccessPage(@RequestBody String username,@RequestBody String password){
+    @GetMapping("/success")
+    public String getSuccessPage(){
         return "success";
     }
 }
