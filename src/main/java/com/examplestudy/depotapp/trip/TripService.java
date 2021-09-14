@@ -2,15 +2,16 @@ package com.examplestudy.depotapp.trip;
 
 import com.examplestudy.depotapp.Route.Route;
 import com.examplestudy.depotapp.security.SecurityUser;
-import com.examplestudy.depotapp.user.User;
-import com.examplestudy.depotapp.user.UserRepository;
+import com.examplestudy.depotapp.security.User;
+import com.examplestudy.depotapp.security.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -77,10 +78,7 @@ public class TripService {
         repository.save(trip);
         userRepository.save(user);
     }
-    public List<TripForPassengers> getTripsForPassenger(Route route, LocalDate date){
-        List<Trip> trips = null;
-        if(route!=null&&date!=null) { trips = findAllByRouteAndDate(route,date);}
-        else trips = repository.findAll();
+    public List<TripForPassengers> convertTrips(List<Trip> trips){
         return trips.stream().map(e->new TripForPassengers(
                 e.getId(),
                 e.getRoute().toString(),
@@ -90,5 +88,20 @@ public class TripService {
                 e.getBus().getCapacity()-e.getTicketsSale()
 
         )).collect(Collectors.toList());
+    }
+    public List<TripForPassengers> getTripsForPassengerByRouteAndData(Route route, LocalDate date){
+        List<Trip> trips = null;
+        if(route!=null&&date!=null) { trips = findAllByRouteAndDate(route,date);}
+        else trips = repository.findAll();
+        return convertTrips(trips);
+    }
+    public List<TripForPassengers> getAllTripsForPassenger(){
+        SecurityUser securityUser = (SecurityUser) SecurityContextHolder.
+                getContext().getAuthentication().getPrincipal();
+        Long userId = securityUser.getId();
+        User user = userRepository.findById(userId).get();
+        Set<Trip> set = user.getTrips();
+        List<Trip> trips = new ArrayList<>(set);
+        return convertTrips(trips);
     }
 }

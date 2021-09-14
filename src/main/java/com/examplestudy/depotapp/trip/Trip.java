@@ -3,7 +3,7 @@ package com.examplestudy.depotapp.trip;
 import com.examplestudy.depotapp.Route.Route;
 import com.examplestudy.depotapp.bus.Bus;
 import com.examplestudy.depotapp.driver.Driver;
-import com.examplestudy.depotapp.user.User;
+import com.examplestudy.depotapp.security.User;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

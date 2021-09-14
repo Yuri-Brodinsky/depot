@@ -1,4 +1,4 @@
-package com.examplestudy.depotapp.user;
+package com.examplestudy.depotapp.security;
 
 import com.examplestudy.depotapp.trip.Trip;
 import lombok.Getter;

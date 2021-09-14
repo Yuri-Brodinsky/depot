@@ -1,6 +1,5 @@
 package com.examplestudy.depotapp.security;
 
-import com.examplestudy.depotapp.user.User;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

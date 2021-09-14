@@ -1,8 +1,9 @@
-package com.examplestudy.depotapp.user;
+package com.examplestudy.depotapp.security;
 
 public enum Permission {
     CLIENTS("clients"),
-    DEPOT("depot");
+    DEPOT("depot"),
+    ADMINS("admins");
     private final String permission;
     Permission(String permission){
         this.permission = permission;

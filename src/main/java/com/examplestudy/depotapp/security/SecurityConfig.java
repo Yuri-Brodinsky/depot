@@ -1,9 +1,7 @@
 package com.examplestudy.depotapp.security;
 
-import com.examplestudy.depotapp.user.Permission;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -27,7 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
+                .antMatchers("/","/auth/registration","auth/home-page").permitAll()
                 .antMatchers("/api/v1/schedule").permitAll()
                 .anyRequest()
                 .authenticated()

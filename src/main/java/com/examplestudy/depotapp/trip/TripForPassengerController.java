@@ -16,11 +16,12 @@ public class TripForPassengerController {
     }
     @GetMapping
     public List<TripForPassengers> tripForPassengers(){
-        return service.getTripsForPassenger(null,null);
+
+        return service.getTripsForPassengerByRouteAndData(null,null);
     }
     @PostMapping
     public List<TripForPassengers> tripForPassengers(Route route,LocalDate date){
-        return service.getTripsForPassenger(route,date);
+        return service.getTripsForPassengerByRouteAndData(route,date);
     }
     @PostMapping("/{id}/buy")
     @PreAuthorize("hasAuthority('clients')")
@@ -33,5 +34,9 @@ public class TripForPassengerController {
     public String removeOrder(@PathVariable Long id){
         service.removePassenger(id);
         return "Your order has been canceled!";
+    }
+    @GetMapping("/orders")
+    public List<TripForPassengers> getPassengerOrders(){
+        return service.getAllTripsForPassenger();
     }
 }
