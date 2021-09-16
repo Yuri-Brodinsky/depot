@@ -33,6 +33,8 @@ public class UserDetailServiceImpl implements UserDetailsService {
         user.setRole(Role.USER);
         repository.save(user);
         return true;
+
+
         }
         return false;
     }
