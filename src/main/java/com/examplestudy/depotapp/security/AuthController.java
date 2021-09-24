@@ -1,5 +1,6 @@
 package com.examplestudy.depotapp.security;
 
+import com.examplestudy.depotapp.user.User;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,21 +36,5 @@ public class AuthController {
         }
         return "login";
     }
-    @GetMapping("/moderation")
-    @PreAuthorize("hasAuthority('admins')")
-    public String getModerationPage(Model model){
-        User user = new User();
-        model.addAttribute("user",user);
-        return "moderation";
-    }
-    @PostMapping("/moderation")
-    @PreAuthorize("hasAuthority('admins')")
-    public String addModerator(@ModelAttribute User user,Model model){
-        boolean b = service.addModerator(user);
-        if(!b) {
-            model.addAttribute("error","moderator with the same login already exist");
-            return "moderation";
-        }
-        return "/login";
-    }
+   
 }

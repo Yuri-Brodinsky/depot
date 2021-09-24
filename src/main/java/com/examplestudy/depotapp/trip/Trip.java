@@ -3,7 +3,7 @@ package com.examplestudy.depotapp.trip;
 import com.examplestudy.depotapp.Route.Route;
 import com.examplestudy.depotapp.bus.Bus;
 import com.examplestudy.depotapp.driver.Driver;
-import com.examplestudy.depotapp.security.User;
+import com.examplestudy.depotapp.user.User;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +12,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Set;
+import java.time.LocalTime;
 
 @Entity
 @Getter
@@ -36,7 +37,7 @@ public class Trip {
     @Column(name="ticketSale")
     private int ticketsSale;
     @Column(name="departure_time")
-    private String departureTime;
+    private LocalTime departureTime;
     @ManyToMany(fetch = FetchType.EAGER )
     @JoinTable(
             name = "users_trips",
@@ -49,20 +50,15 @@ public class Trip {
         users.add(user);
     }
     public void removeUser(User user){users.remove(user);}
-    public Trip(Route route, LocalDate date, Bus bus, Driver driver, int ticketsSale, int hour, int min){
+    public Trip(Route route, LocalDate date, Bus bus, Driver driver, int ticketsSale, LocalTime departureTime){
         this.route = route;
         this.date = date;
         this.bus = bus;
         this.driver = driver;
         this.ticketsSale = ticketsSale;
-        setDepartureTime(hour,min);
+        this.departureTime = departureTime;
     }
-    public void setDepartureTime(int hour,int min){
-        if(hour>=0&&hour<=23)departureTime=""+hour+" : ";
-        else departureTime = "0 : ";
-        if(min>=0&&min<=59) departureTime = departureTime+min;
-        else departureTime = departureTime + "00";
-    }
+
 
 
 }

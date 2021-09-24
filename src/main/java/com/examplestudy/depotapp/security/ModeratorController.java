@@ -1,23 +1,27 @@
 package com.examplestudy.depotapp.security;
 
+import com.examplestudy.depotapp.security.UserDetailServiceImpl;
+import com.examplestudy.depotapp.user.User;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-public class UserController {
+public class ModeratorController {
     private final UserDetailServiceImpl service;
-    public UserController(UserDetailServiceImpl service){
+    public ModeratorController(UserDetailServiceImpl service){
         this.service = service;
     }
     @GetMapping("/moderators")
     @PreAuthorize("hasAuthority('admins')")
     public List<User> getAllModerators(){
         return service.getAllModerators();
+    }
+    @PostMapping("/moderators")
+    @PreAuthorize("hasAuthority('admins')")
+    public void addModerator(@RequestBody User userData){
+         service.addModerator(userData);
     }
     @GetMapping("/moderators/{id}")
     @PreAuthorize("hasAuthority('admins')")

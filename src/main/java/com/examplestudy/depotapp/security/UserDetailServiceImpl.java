@@ -1,5 +1,9 @@
 package com.examplestudy.depotapp.security;
 
+import com.examplestudy.depotapp.security.Role;
+import com.examplestudy.depotapp.security.SecurityUser;
+import com.examplestudy.depotapp.user.User;
+import com.examplestudy.depotapp.user.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -33,8 +37,6 @@ public class UserDetailServiceImpl implements UserDetailsService {
         user.setRole(Role.USER);
         repository.save(user);
         return true;
-
-
         }
         return false;
     }

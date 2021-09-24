@@ -1,12 +1,13 @@
 package com.examplestudy.depotapp.security;
 
+import com.examplestudy.depotapp.user.User;
+import com.examplestudy.depotapp.user.UserRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
@@ -14,7 +15,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class UserDetailServiceImplTest {
     @Mock
-    private  UserRepository mockedRepository;
+    private UserRepository mockedRepository;
     @Test
     public void shouldReturnFalse(){
         when(mockedRepository.findByLogin("admin")).thenReturn(new User());

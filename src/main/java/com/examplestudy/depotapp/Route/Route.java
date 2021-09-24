@@ -6,6 +6,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+import java.time.LocalTime;
+
 @Entity
 @Getter
 @Setter
@@ -18,11 +20,11 @@ public class Route {
     private String from;
     @Column(name="end_point")
     private String to;
-    @Column(name="pathLength")
+    @Column(name="path_length")
     private int pathLength;
-    @Column(name="timeTravel")
-    private int timeTravel;
-    public Route(String from,String to,int pathLength,int timeTravel){
+    @Column(name="time_travel")
+    private LocalTime timeTravel;
+    public Route(String from,String to,int pathLength,LocalTime timeTravel){
         this.from = from;
         this.to = to;
         this.pathLength = pathLength;

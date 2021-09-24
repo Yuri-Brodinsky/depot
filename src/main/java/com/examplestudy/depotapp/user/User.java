@@ -1,5 +1,6 @@
-package com.examplestudy.depotapp.security;
+package com.examplestudy.depotapp.user;
 
+import com.examplestudy.depotapp.security.Role;
 import com.examplestudy.depotapp.trip.Trip;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

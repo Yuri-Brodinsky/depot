@@ -1,5 +1,6 @@
-package com.examplestudy.depotapp.security;
+package com.examplestudy.depotapp.user;
 
+import com.examplestudy.depotapp.security.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

@@ -9,34 +9,31 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/schedule")
-public class TripForPassengerController {
-    private final TripService service;
-    public TripForPassengerController(TripService service){
+public class ScheduleController {
+    private final ScheduleService service;
+    public ScheduleController(ScheduleService service){
         this.service = service;
     }
-    @GetMapping
-    public List<TripForPassengers> tripForPassengers(){
 
-        return service.getTripsForPassengerByRouteAndData(null,null);
+    @GetMapping
+    public List<ScheduleTrip> getAllByRouteAndDate(Route route, LocalDate date){
+        return service.getScheduleByRouteAndDate(route,date);
     }
-    @PostMapping
-    public List<TripForPassengers> tripForPassengers(Route route,LocalDate date){
-        return service.getTripsForPassengerByRouteAndData(route,date);
+    @GetMapping("/{id}")
+    public ScheduleTrip getByRouteAndDate(@PathVariable Long id){
+        return service.getOneById(id);
     }
-    @PostMapping("/{id}/buy")
+    @PostMapping("/{id}")
     @PreAuthorize("hasAuthority('clients')")
     public String addOrder(@PathVariable Long id){
         service.addPassenger(id);
         return "Thanks for order!";
     }
-    @PostMapping("/{id}/cancel")
+    @DeleteMapping ("/{id}")
     @PreAuthorize("hasAuthority('clients')")
     public String removeOrder(@PathVariable Long id){
         service.removePassenger(id);
         return "Your order has been canceled!";
     }
-    @GetMapping("/orders")
-    public List<TripForPassengers> getPassengerOrders(){
-        return service.getAllTripsForPassenger();
-    }
+
 }
