@@ -1,6 +1,6 @@
 package com.examplestudy.depotapp.trip;
 
-import com.examplestudy.depotapp.Route.Route;
+import com.examplestudy.depotapp.route.Route;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

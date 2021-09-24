@@ -1,6 +1,6 @@
 package com.examplestudy.depotapp.trip;
 
-import com.examplestudy.depotapp.Route.Route;
+import com.examplestudy.depotapp.route.Route;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 

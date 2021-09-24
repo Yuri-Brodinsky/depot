@@ -1,4 +1,4 @@
-package com.examplestudy.depotapp.Route;
+package com.examplestudy.depotapp.route;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

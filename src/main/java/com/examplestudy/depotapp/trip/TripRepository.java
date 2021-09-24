@@ -1,6 +1,6 @@
 package com.examplestudy.depotapp.trip;
 
-import com.examplestudy.depotapp.Route.Route;
+import com.examplestudy.depotapp.route.Route;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

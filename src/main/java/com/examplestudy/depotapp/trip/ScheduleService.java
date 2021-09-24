@@ -1,6 +1,6 @@
 package com.examplestudy.depotapp.trip;
 
-import com.examplestudy.depotapp.Route.Route;
+import com.examplestudy.depotapp.route.Route;
 import com.examplestudy.depotapp.security.SecurityUser;
 import com.examplestudy.depotapp.user.User;
 import com.examplestudy.depotapp.user.UserRepository;

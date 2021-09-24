@@ -1,6 +1,6 @@
 package com.examplestudy.depotapp.trip;
 
-import com.examplestudy.depotapp.Route.Route;
+import com.examplestudy.depotapp.route.Route;
 import com.examplestudy.depotapp.bus.Bus;
 import com.examplestudy.depotapp.driver.Driver;
 import com.examplestudy.depotapp.user.User;
