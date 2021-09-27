@@ -23,8 +23,8 @@ public class Route {
     @Column(name="path_length")
     private int pathLength;
     @Column(name="time_travel")
-    private LocalTime timeTravel;
-    public Route(String from,String to,int pathLength,LocalTime timeTravel){
+    private int timeTravel;
+    public Route(String from,String to,int pathLength,int timeTravel){
         this.from = from;
         this.to = to;
         this.pathLength = pathLength;

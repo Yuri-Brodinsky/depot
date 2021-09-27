@@ -20,11 +20,14 @@ public class ScheduleService {
         this.repository = repository;
         this.userRepository = userRepository;
     }
-    public void addPassenger(Long tripId){
-        Trip trip =repository.findById(tripId).get();
+    private Long getUserId(){
         SecurityUser securityUser = (SecurityUser) SecurityContextHolder.
                 getContext().getAuthentication().getPrincipal();
-        Long userId = securityUser.getId();
+        return securityUser.getId();
+    }
+    public void addPassenger(Long tripId){
+        Trip trip =repository.findById(tripId).get();
+        Long userId = getUserId();
         User user = userRepository.findById(userId).get();
         trip.addUser(user);
         trip.setTicketsSale(trip.getTicketsSale()+1);
@@ -34,9 +37,7 @@ public class ScheduleService {
     }
     public void removePassenger(Long tripId){
         Trip trip =repository.findById(tripId).get();
-        SecurityUser securityUser = (SecurityUser) SecurityContextHolder.
-                getContext().getAuthentication().getPrincipal();
-        Long userId = securityUser.getId();
+        Long userId = getUserId();
         User user = userRepository.findById(userId).get();
         trip.removeUser(user);
         trip.setTicketsSale(trip.getTicketsSale()-1);
@@ -46,7 +47,7 @@ public class ScheduleService {
     }
     public List<ScheduleTrip> convertTrips(List<Trip> trips){
         return trips.stream()
-                .map(ScheduleTrip::getTripInfoFromTrio)
+                .map(ScheduleTrip::getScheduleTripFromTrip)
                 .collect(Collectors.toList());
     }
     public List<ScheduleTrip> getScheduleByRouteAndDate(Route route, LocalDate date){
@@ -56,7 +57,7 @@ public class ScheduleService {
         return convertTrips(trips);
     }
     public ScheduleTrip getOneById(Long id){
-        return ScheduleTrip.getTripInfoFromTrio(repository.findById(id).get());
+        return ScheduleTrip.getScheduleTripFromTrip(repository.findById(id).get());
     }
     public List<ScheduleTrip> getAllTripsForUser(Long id){
         User user = userRepository.findById(id).get();

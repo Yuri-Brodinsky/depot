@@ -23,22 +23,22 @@ public class Trip {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="route_id")
     private Route route;
     @Column(name="date")
     private LocalDate date;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="bus_id")
     private Bus bus;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="driver_id")
     private Driver driver;
-    @Column(name="ticketSale")
+    @Column(name="ticket_sale")
     private int ticketsSale;
     @Column(name="departure_time")
     private LocalTime departureTime;
-    @ManyToMany(fetch = FetchType.EAGER )
+    @ManyToMany(fetch = FetchType.LAZY )
     @JoinTable(
             name = "users_trips",
             joinColumns = @JoinColumn(name="trip_id"),
@@ -50,7 +50,8 @@ public class Trip {
         users.add(user);
     }
     public void removeUser(User user){users.remove(user);}
-    public Trip(Route route, LocalDate date, Bus bus, Driver driver, int ticketsSale, LocalTime departureTime){
+    public Trip(Route route, LocalDate date, Bus bus, Driver driver,
+                int ticketsSale, LocalTime departureTime){
         this.route = route;
         this.date = date;
         this.bus = bus;

@@ -17,13 +17,14 @@ public class ScheduleTrip {
     private String arrivalTime;
     private int cost;
     private int tickets;
-    public static ScheduleTrip getTripInfoFromTrio(Trip trip){
+    public static ScheduleTrip getScheduleTripFromTrip(Trip trip){
         Route route = trip.getRoute();
         return new ScheduleTrip(
                 trip.getId(),
                 new StringBuilder(route.getFrom()).append(" ").append(route.getTo()).toString(),
                 trip.getDepartureTime().toString(),
-                trip.getDepartureTime().plusMinutes(route.getTimeTravel().getMinute()).toString(),
+                //route.getTimeTravel().getMinute())
+                (trip.getDepartureTime().plusMinutes(200)).toString(),
                 route.getPathLength()*trip.getBus().getCostPerKilometer(),
                 trip.getTicketsSale()
         );
