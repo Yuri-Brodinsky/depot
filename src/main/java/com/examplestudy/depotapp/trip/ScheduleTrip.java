@@ -23,8 +23,7 @@ public class ScheduleTrip {
                 trip.getId(),
                 new StringBuilder(route.getFrom()).append(" ").append(route.getTo()).toString(),
                 trip.getDepartureTime().toString(),
-                //route.getTimeTravel().getMinute())
-                (trip.getDepartureTime().plusMinutes(200)).toString(),
+                (trip.getDepartureTime().plusMinutes(route.getTimeTravel())).toString(),
                 route.getPathLength()*trip.getBus().getCostPerKilometer(),
                 trip.getTicketsSale()
         );

@@ -23,7 +23,7 @@ public class ScheduleController {
     public ScheduleTrip getByRouteAndDate(@PathVariable Long id){
         return service.getOneById(id);
     }
-    @PostMapping("/{id}")
+    @PostMapping ("/{id}")
     @PreAuthorize("hasAuthority('clients')")
     public String addOrder(@PathVariable Long id){
         service.addPassenger(id);
