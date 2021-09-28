@@ -1,5 +1,7 @@
 package com.examplestudy.depotapp.bus;
 
+import com.examplestudy.depotapp.response.AlreadyExistException;
+import com.examplestudy.depotapp.response.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,9 +17,13 @@ public class BusService {
         return repository.findAll();
     }
     public Bus findById(Long id){
-        return repository.findById(id).get();
+        Optional<Bus> optional = repository.findById(id);
+        if(optional.isEmpty()) throw new NotFoundException("no such bus found");
+        return optional.get();
     }
     public void add(Bus bus){
+        Optional<Bus> optional = repository.findByNumber(bus.getNumber());
+        if(optional.isPresent()) throw new AlreadyExistException("bus with same number is already exist");
         repository.save(bus);
     }
     public void update(Bus bus){

@@ -1,7 +1,9 @@
 package com.examplestudy.depotapp.trip;
 
+import com.examplestudy.depotapp.response.NotFoundException;
 import com.examplestudy.depotapp.route.Route;
 import com.examplestudy.depotapp.user.UserRepository;
+import lombok.Data;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -9,18 +11,17 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Data
 public class TripService {
     private final TripRepository repository;
-    private final UserRepository userRepository;
-    public TripService(TripRepository repository,UserRepository userRepository){
-        this.repository = repository;
-        this.userRepository = userRepository;
-    }
+
     public List<Trip> findAll(){
         return repository.findAll();
     }
-    public Trip getById(Long id){
-        return repository.findById(id).get();
+    public Trip getById(Long id) {
+        Optional<Trip> optional = repository.findById(id);
+        if(optional.isEmpty()) throw new NotFoundException("no such trip found");
+        return optional.get();
     }
     public void add(Trip trip){
         repository.save(trip);

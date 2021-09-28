@@ -1,5 +1,7 @@
 package com.examplestudy.depotapp.security;
 
+import com.examplestudy.depotapp.response.AlreadyExistException;
+import com.examplestudy.depotapp.response.NotFoundException;
 import com.examplestudy.depotapp.security.Role;
 import com.examplestudy.depotapp.security.SecurityUser;
 import com.examplestudy.depotapp.user.User;
@@ -28,7 +30,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
         UserDetails securityUser = SecurityUser.userDetailsFromUser(user);
        return securityUser;
     }
-    public boolean addUser( User userData){
+    public void addUser( User userData){
         User user = new User();
         User res = repository.findByLogin(userData.getLogin());
         if(res==null){
@@ -36,11 +38,12 @@ public class UserDetailServiceImpl implements UserDetailsService {
         user.setPassword(passwordEncoder.encode(userData.getPassword()));
         user.setRole(Role.USER);
         repository.save(user);
-        return true;
+
         }
-        return false;
+        else throw new AlreadyExistException("this login is busy");
+
     }
-    public boolean addModerator( User userData){
+    public void addModerator( User userData){
         User user = new User();
         User res = repository.findByLogin(userData.getLogin());
         if(res==null){
@@ -48,9 +51,8 @@ public class UserDetailServiceImpl implements UserDetailsService {
             user.setPassword(passwordEncoder.encode(userData.getPassword()));
             user.setRole(Role.MODERATOR);
             repository.save(user);
-            return true;
         }
-        return false;
+        else throw new AlreadyExistException("this login is busy");
     }
     public void removeModerator(Long id){
         repository.deleteById(id);
@@ -60,6 +62,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
     }
     public User getModerator(Long id){
         User user = repository.findById(id).get();
+        if(user==null) throw new NotFoundException("this moderator was not found");
         if(user.getRole()==Role.MODERATOR) return user;
         return null;
     }

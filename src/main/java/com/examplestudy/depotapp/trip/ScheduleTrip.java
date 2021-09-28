@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -25,7 +28,8 @@ public class ScheduleTrip {
                 trip.getDepartureTime().toString(),
                 (trip.getDepartureTime().plusMinutes(route.getTimeTravel())).toString(),
                 route.getPathLength()*trip.getBus().getCostPerKilometer(),
-                trip.getTicketsSale()
+                trip.getBus().getCapacity()-trip.getTicketsSale()
         );
     }
+
 }

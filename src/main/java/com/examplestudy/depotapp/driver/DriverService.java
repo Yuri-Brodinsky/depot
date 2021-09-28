@@ -1,6 +1,7 @@
 package com.examplestudy.depotapp.driver;
 
 
+import com.examplestudy.depotapp.response.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +17,9 @@ public class DriverService {
         return repository.findAll();
     }
     public Driver findById(Long id){
-        return repository.findById(id).get();
+        Optional<Driver> optional = repository.findById(id);
+        if(optional.isEmpty()) throw new NotFoundException("no such driver found");
+        return optional.get();
     }
     public void add(Driver driver){
         repository.save(driver);

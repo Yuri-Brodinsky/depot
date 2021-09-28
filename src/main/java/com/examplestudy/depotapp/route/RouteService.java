@@ -1,21 +1,24 @@
 package com.examplestudy.depotapp.route;
 
+import com.examplestudy.depotapp.response.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class RoutService {
+public class RouteService {
     private final RouteRepository repository;
-    public RoutService(RouteRepository repository){
+    public RouteService(RouteRepository repository){
         this.repository = repository;
     }
     public List<Route> findAll(){
         return repository.findAll();
     }
     public Route getById(Long id){
-        return repository.findById(id).get();
+        Optional<Route> optional = repository.findById(id);
+        if(optional.isEmpty()) throw new NotFoundException("no such route found");
+        return optional.get();
     }
     public void add(Route route){
         repository.save(route);

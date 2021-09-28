@@ -9,8 +9,8 @@ import java.util.List;
 @RequestMapping("api/v1/routes")
 @PreAuthorize("hasAuthority('depot')")
 public class RouteController {
-    private final RoutService service;
-    public RouteController(RoutService service){
+    private final RouteService service;
+    public RouteController(RouteService service){
         this.service = service;
     }
     @GetMapping

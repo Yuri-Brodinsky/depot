@@ -28,13 +28,8 @@ public class AuthController {
         return "registration";
     }
     @PostMapping("/registration")
-    public String addUser(@ModelAttribute User user,Model model){
-        boolean b = service.addUser(user);
-        if(!b) {
-            model.addAttribute("error","user with the same login already exist");
-            return "/registration";
-        }
-        return "login";
+    public void addUser(@ModelAttribute User user){
+        service.addUser(user);
     }
    
 }
