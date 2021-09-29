@@ -17,11 +17,11 @@ public class ScheduleController {
 
     @GetMapping
     public List<ScheduleTrip> getAllByRouteAndDate(Route route, LocalDate date){
-        return service.getScheduleByRouteAndDate(route,date);
+        return service.findAllByRouteAndDate(route,date);
     }
     @GetMapping("/{id}")
     public ScheduleTrip getByRouteAndDate(@PathVariable Long id){
-        return service.getOneById(id);
+        return service.findById(id);
     }
     @PostMapping ("/{id}")
     @PreAuthorize("hasAuthority('clients')")

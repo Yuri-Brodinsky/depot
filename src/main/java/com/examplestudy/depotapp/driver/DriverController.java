@@ -1,5 +1,7 @@
 package com.examplestudy.depotapp.driver;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,9 +13,9 @@ import java.util.List;
 @PreAuthorize("hasAuthority('depot')")
 public class DriverController {
     private final DriverService service;
-    public DriverController(DriverService service){
-        this.service = service;
-    }
+
+    public DriverController(DriverService service){this.service = service;}
+
     @GetMapping
     @PreAuthorize("hasAuthority('depot')")
     public List<Driver> getAll(){

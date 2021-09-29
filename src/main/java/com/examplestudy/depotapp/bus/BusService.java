@@ -2,6 +2,8 @@ package com.examplestudy.depotapp.bus;
 
 import com.examplestudy.depotapp.response.AlreadyExistException;
 import com.examplestudy.depotapp.response.NotFoundException;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,9 +12,9 @@ import java.util.Optional;
 @Service
 public class BusService {
     private final BusRepository repository;
-    public BusService(BusRepository repository){
-        this.repository = repository;
-    }
+
+    public BusService(BusRepository repository){this.repository = repository;}
+
     public List<Bus> findAll(){
         return repository.findAll();
     }

@@ -1,5 +1,7 @@
 package com.examplestudy.depotapp.bus;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,9 +14,9 @@ import java.util.List;
 @PreAuthorize("hasAuthority('depot')")
 public class BusController {
     private final BusService service;
-    public BusController(BusService service){
-        this.service = service;
-    }
+
+    public BusController(BusService service){this.service = service;}
+
     @GetMapping
     @PreAuthorize("hasAuthority('depot')")
     public List<Bus> getAll() {

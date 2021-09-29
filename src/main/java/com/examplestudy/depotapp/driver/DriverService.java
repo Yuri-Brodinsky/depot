@@ -2,6 +2,8 @@ package com.examplestudy.depotapp.driver;
 
 
 import com.examplestudy.depotapp.response.NotFoundException;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,9 +12,9 @@ import java.util.Optional;
 @Service
 public class DriverService {
     private final DriverRepository repository;
-    public DriverService(DriverRepository repository){
-        this.repository = repository;
-    }
+
+    public DriverService(DriverRepository repository){this.repository = repository;}
+
     public List<Driver> findAll(){
         return repository.findAll();
     }

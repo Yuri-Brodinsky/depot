@@ -14,13 +14,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/account")
-@Data
 public class UserController {
-    private final UserService service;;
+    private final UserService service;
+
+    public UserController(UserService service){ this.service = service;}
+
     @GetMapping
     @PreAuthorize("hasAuthority('clients')")
     public User get(){
-        return service.getUser();
+        return service.getAccount();
     }
     @GetMapping("/orders")
     @PreAuthorize("hasAuthority('clients')")

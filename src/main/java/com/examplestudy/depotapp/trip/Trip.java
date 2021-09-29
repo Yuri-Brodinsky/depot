@@ -4,20 +4,19 @@ import com.examplestudy.depotapp.route.Route;
 import com.examplestudy.depotapp.bus.Bus;
 import com.examplestudy.depotapp.driver.Driver;
 import com.examplestudy.depotapp.user.User;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Set;
 import java.time.LocalTime;
 
 @Entity
 @Getter
 @Setter
-@EqualsAndHashCode
 @NoArgsConstructor
 public class Trip {
     @Id
@@ -45,6 +44,7 @@ public class Trip {
             inverseJoinColumns = @JoinColumn(name="user_id")
 
     )
+    @JsonIgnore
     private Set<User> users;
     public void addUser(User user){
         users.add(user);
@@ -60,6 +60,18 @@ public class Trip {
         this.departureTime = departureTime;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Trip trip = (Trip) o;
+        return Objects.equals(id, trip.id) && Objects.equals(route, trip.route)
+                && Objects.equals(date, trip.date) && Objects.equals(bus, trip.bus)
+                && Objects.equals(departureTime, trip.departureTime);
+    }
 
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, route, date, bus, departureTime);
+    }
 }

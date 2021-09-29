@@ -3,6 +3,7 @@ package com.examplestudy.depotapp.trip;
 import com.examplestudy.depotapp.response.NotFoundException;
 import com.examplestudy.depotapp.route.Route;
 import com.examplestudy.depotapp.user.UserRepository;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
@@ -11,14 +12,15 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Data
 public class TripService {
     private final TripRepository repository;
+
+    public TripService(TripRepository repository){this.repository = repository;}
 
     public List<Trip> findAll(){
         return repository.findAll();
     }
-    public Trip getById(Long id) {
+    public Trip findById(Long id) {
         Optional<Trip> optional = repository.findById(id);
         if(optional.isEmpty()) throw new NotFoundException("no such trip found");
         return optional.get();

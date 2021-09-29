@@ -4,6 +4,7 @@ import com.examplestudy.depotapp.security.SecurityUser;
 import com.examplestudy.depotapp.trip.ScheduleService;
 import com.examplestudy.depotapp.trip.ScheduleTrip;
 import com.examplestudy.depotapp.trip.Trip;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -12,10 +13,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@Data
 public class UserService {
-
     private final UserRepository repository;
+
+    public UserService(UserRepository repository){ this.repository = repository;}
 
     private Long getId(){
           SecurityUser securityUser = (SecurityUser) SecurityContextHolder.
@@ -26,6 +27,11 @@ public class UserService {
     public User getUser(){
         User user = repository.findById(getId()).get();
         user.setPassword(null);
+        return user;
+    }
+    public User getAccount(){
+        User user = getUser();
+        user.setTrips(null);
         return user;
     }
     public void update(User user) {

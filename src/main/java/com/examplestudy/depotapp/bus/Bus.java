@@ -1,5 +1,6 @@
 package com.examplestudy.depotapp.bus;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -7,9 +8,9 @@ import java.time.LocalDate;
 
 
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Bus {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -32,7 +33,6 @@ public class Bus {
         this.model = model;
         this.capacity = capacity;
         this.consumption = consumption;
-        this.comissioningDate = comissioningDate;
         this.comissioningDate = comissioningDate;
     }
 

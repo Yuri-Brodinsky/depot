@@ -22,7 +22,7 @@ public class RestApiExceptionHandler extends ResponseEntityExceptionHandler {
                 request.getDescription(false));
         return new ResponseEntity<>(exception,HttpStatus.INTERNAL_SERVER_ERROR);
     }
-    @ExceptionHandler(Throwable.class)
+    @ExceptionHandler(NotFoundException.class)
     public final ResponseEntity<Object> handleNotFoundException(Exception e, WebRequest request){
         RestApiResponse response = new RestApiResponse(
                 LocalTime.now(),
@@ -30,7 +30,7 @@ public class RestApiExceptionHandler extends ResponseEntityExceptionHandler {
                 request.getDescription(false));
         return new ResponseEntity<>(response,HttpStatus.NOT_FOUND);
     }
-    @ExceptionHandler(NotFoundException.class)
+    @ExceptionHandler(AlreadyExistException.class)
     public final ResponseEntity<Object> handleAlreadyExistException(Exception e, WebRequest request){
         RestApiResponse exception =  new RestApiResponse(
                 LocalTime.now(),

@@ -1,5 +1,7 @@
 package com.examplestudy.depotapp.route;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,9 +12,9 @@ import java.util.List;
 @PreAuthorize("hasAuthority('depot')")
 public class RouteController {
     private final RouteService service;
-    public RouteController(RouteService service){
-        this.service = service;
-    }
+
+    public RouteController(RouteService service){ this.service = service;}
+
     @GetMapping
     @PreAuthorize("hasAuthority('depot')")
     public List<Route> getAll(){
@@ -21,7 +23,7 @@ public class RouteController {
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('depot')")
     public Route getById(@PathVariable Long id){
-        return service.getById(id);
+        return service.findById(id);
     }
     @PostMapping("/new")
     @PreAuthorize("hasAuthority('depot')")

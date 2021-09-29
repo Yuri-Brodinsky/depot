@@ -21,7 +21,7 @@ public class TripController {
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('depot')")
     public Trip getById(@PathVariable Long id){
-        return service.getById(id);
+        return service.findById(id);
     }
     @PostMapping("/new")
     @PreAuthorize("hasAuthority('depot')")
