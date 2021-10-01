@@ -13,22 +13,26 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@Data
 public class ScheduleService {
     private final TripService tripService;
     private final UserService userService;
 
-    //@Transactional(propagation = Propagation.REQUIRES_NEW)
+    public ScheduleService(TripService tripService,UserService userService){
+        this.tripService = tripService;
+        this.userService = userService;
+    }
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void addPassenger(Long tripId){
         Trip trip = tripService.findById(tripId);
         User user = userService.getUser();
         trip.addUser(user);
+        //trip.setTicketsSale(trip.getUsers().size());
         trip.setTicketsSale(trip.getTicketsSale()+1);
         user.addTrip(trip);
         tripService.update(trip);
         userService.update(user);
     }
-    //@Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void removePassenger(Long tripId){
         Trip trip = tripService.findById(tripId);
         User user = userService.getUser();

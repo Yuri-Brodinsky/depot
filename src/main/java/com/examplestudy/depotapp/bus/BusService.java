@@ -2,8 +2,6 @@ package com.examplestudy.depotapp.bus;
 
 import com.examplestudy.depotapp.response.AlreadyExistException;
 import com.examplestudy.depotapp.response.NotFoundException;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +20,7 @@ public class BusService {
         Optional<Bus> optional = repository.findById(id);
         if(optional.isEmpty()) throw new NotFoundException("no such bus found");
         return optional.get();
+
     }
     public void add(Bus bus){
         Optional<Bus> optional = repository.findByNumber(bus.getNumber());
@@ -29,9 +28,9 @@ public class BusService {
         repository.save(bus);
     }
     public void update(Bus bus){
-        Optional<Bus> row = repository.findById(bus.getId());
-        if(row.isPresent()){
-            Bus item = row.get();
+        Optional<Bus> optional = repository.findById(bus.getId());
+        if(optional.isPresent()){
+            Bus item = optional.get();
             item.setId(bus.getId());
             item.setNumber(bus.getNumber());
             item.setModel(bus.getModel());
@@ -40,8 +39,8 @@ public class BusService {
             item.setCostPerKilometer(bus.getCostPerKilometer());
             item.setComissioningDate(bus.getComissioningDate());
             repository.save(item);
-
         }
+        else throw new NotFoundException("no such bus found for update");
     }
     public void delete(Long id){
         repository.deleteById(id);

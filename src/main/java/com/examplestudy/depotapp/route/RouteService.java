@@ -26,8 +26,8 @@ public class RouteService {
         repository.save(route);
     }
     public void update(Route route){
-        Optional<Route> row = repository.findById(route.getId());
-        if(row.isPresent()){
+        Optional<Route> optional = repository.findById(route.getId());
+        if(optional.isPresent()){
             Route item = new Route();
             item.setId(route.getId());
             item.setFrom(route.getFrom());
@@ -36,6 +36,7 @@ public class RouteService {
             item.setTimeTravel(route.getTimeTravel());
             repository.save(item);
         }
+        else throw new NotFoundException("no such route found for update");
     }
     public void delete(Long id){
         repository.deleteById(id);

@@ -30,8 +30,8 @@ public class TripService {
     }
 
     public void update(Trip trip){
-        Optional<Trip> raw = repository.findById(trip.getId());
-        if(raw.isPresent()){
+        Optional<Trip> optional = repository.findById(trip.getId());
+        if(optional.isPresent()){
             Trip item = new Trip();
             item.setId(trip.getId());
             item.setBus(trip.getBus());
@@ -42,6 +42,7 @@ public class TripService {
             item.setTicketsSale(trip.getTicketsSale());
             repository.save(item);
         }
+        else throw new NotFoundException("no such trip found for update");
     }
     public void delete(Long id){
         repository.deleteById(id);

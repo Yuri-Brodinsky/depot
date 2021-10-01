@@ -27,17 +27,17 @@ public class DriverService {
         repository.save(driver);
     }
     public void update(Driver driver){
-        Optional<Driver> row = repository.findById(driver.getId());
-        if(row.isPresent()){
-            Driver item = row.get();
+        Optional<Driver> optional = repository.findById(driver.getId());
+        if(optional.isPresent()){
+            Driver item = optional.get();
             item.setId(driver.getId());
             item.setName(driver.getName());
             item.setLastName(driver.getLastName());
             item.setBirthYear(driver.getBirthYear());
             item.setEmploymentDate(driver.getEmploymentDate());
             repository.save(item);
-
         }
+        else throw new NotFoundException("no such driver found for update");
     }
     public void delete(Long id){
         repository.deleteById(id);
