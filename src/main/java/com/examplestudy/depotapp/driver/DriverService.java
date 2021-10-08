@@ -2,8 +2,6 @@ package com.examplestudy.depotapp.driver;
 
 
 import com.examplestudy.depotapp.response.NotFoundException;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -4,8 +4,6 @@ import com.examplestudy.depotapp.route.Route;
 import com.examplestudy.depotapp.bus.Bus;
 import com.examplestudy.depotapp.driver.Driver;
 import com.examplestudy.depotapp.user.User;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -37,19 +35,15 @@ public class Trip {
     private int ticketsSale;
     @Column(name="departure_time")
     private LocalTime departureTime;
-    @ManyToMany(fetch = FetchType.LAZY )
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "users_trips",
             joinColumns = @JoinColumn(name="trip_id"),
             inverseJoinColumns = @JoinColumn(name="user_id")
 
     )
-    @JsonIgnore
     private Set<User> users;
-    public void addUser(User user){
-        users.add(user);
-    }
-    public void removeUser(User user){users.remove(user);}
+
     public Trip(Route route, LocalDate date, Bus bus, Driver driver,
                 int ticketsSale, LocalTime departureTime){
         this.route = route;
@@ -73,5 +67,17 @@ public class Trip {
     @Override
     public int hashCode() {
         return Objects.hash(id, route, date, bus, departureTime);
+    }
+
+    @Override
+    public String toString(){
+        return new StringBuilder()
+                .append(" route: ")
+                .append(route)
+                .append(" date: ")
+                .append(date)
+                .append(" departure_time: ")
+                .append(departureTime)
+                .toString();
     }
 }

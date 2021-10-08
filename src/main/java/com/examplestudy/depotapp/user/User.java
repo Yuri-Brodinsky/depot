@@ -37,21 +37,20 @@ public class User {
         this.password = password;
         this.role = role;
     }
-    public void addTrip(Trip trip){
-        trips.add(trip);
-    }
-    public void remove(Trip trip){trips.remove(trip);}
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(login, user.login);
+        return  Objects.equals(login, user.login);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, login);
+        return Objects.hash(login);
+    }
+    public String toString(){
+        return login;
     }
 }

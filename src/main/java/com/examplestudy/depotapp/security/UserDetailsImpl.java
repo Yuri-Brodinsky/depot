@@ -9,14 +9,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 @Data
-public class SecurityUser implements UserDetails {
+public class UserDetailsImpl implements UserDetails {
     private final Long id;
     private final String username;
     private final String password;
     private final List<GrantedAuthority> authorities;
     private final boolean isActive;
-    public SecurityUser(Long id,String username,String password,
-                        List<GrantedAuthority> authorities,boolean isActive){
+    public UserDetailsImpl(Long id, String username, String password,
+                           List<GrantedAuthority> authorities, boolean isActive){
         this.id = id;
         this.username = username;
         this.password = password;
@@ -58,7 +58,7 @@ public class SecurityUser implements UserDetails {
         return isActive;
     }
     public static UserDetails userDetailsFromUser(User user){
-        return new SecurityUser(
+        return new UserDetailsImpl(
                 user.getId(),
                 user.getLogin(),
                 user.getPassword(),

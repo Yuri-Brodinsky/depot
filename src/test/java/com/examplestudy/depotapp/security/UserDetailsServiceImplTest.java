@@ -14,7 +14,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class UserDetailServiceImplTest {
+class UserDetailsServiceImplTest {
     @Mock
     private UserRepository mockedRepository;
    // @Test
@@ -28,9 +28,9 @@ class UserDetailServiceImplTest {
     @Test
     public void shouldThrowAlreadyExistException(){
         when(mockedRepository.findByLogin("admin")).thenReturn(new User());
-        UserDetailServiceImpl service = new UserDetailServiceImpl(mockedRepository);
+        UserDetailsServiceImpl service = new UserDetailsServiceImpl(mockedRepository);
         Throwable thrown = Assertions.assertThrows(AlreadyExistException.class,
-                ()->service.addUser(new User("admin",anyString(),Role.ADMIN)));
+                ()->service.addUser(new AuthenticationRequest("admin",anyString())));
         Assertions.assertEquals("this login is busy",thrown.getMessage());
 
 
@@ -38,9 +38,9 @@ class UserDetailServiceImplTest {
     @Test
     public void shouldNotThrowException(){
         when(mockedRepository.findByLogin("otherLogin")).thenReturn(null);
-        UserDetailServiceImpl service = new UserDetailServiceImpl(mockedRepository);
+        UserDetailsServiceImpl service = new UserDetailsServiceImpl(mockedRepository);
         Assertions.assertDoesNotThrow(
-                ()->service.addModerator(new User("otherLogin",anyString(),Role.USER)));
+                ()->service.addModerator(new AuthenticationRequest("otherLogin","1234")));
 
     }
 

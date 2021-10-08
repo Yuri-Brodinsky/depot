@@ -2,9 +2,7 @@ package com.examplestudy.depotapp.trip;
 
 import com.examplestudy.depotapp.response.NotFoundException;
 import com.examplestudy.depotapp.route.Route;
-import com.examplestudy.depotapp.user.UserRepository;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -40,6 +38,7 @@ public class TripService {
             item.setDate(trip.getDate());
             item.setDepartureTime(trip.getDepartureTime());
             item.setTicketsSale(trip.getTicketsSale());
+            item.setUsers(trip.getUsers());
             repository.save(item);
         }
         else throw new NotFoundException("no such trip found for update");

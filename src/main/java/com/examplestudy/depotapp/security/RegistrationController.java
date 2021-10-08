@@ -1,6 +1,6 @@
 package com.examplestudy.depotapp.security;
 
-import com.examplestudy.depotapp.security.UserDetailServiceImpl;
+
 import com.examplestudy.depotapp.user.User;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -8,9 +8,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-public class ModeratorController {
-    private final UserDetailServiceImpl service;
-    public ModeratorController(UserDetailServiceImpl service){
+@RequestMapping("api/v1/registration")
+public class RegistrationController {
+    private final UserDetailsServiceImpl service;
+    public RegistrationController(UserDetailsServiceImpl service){
         this.service = service;
     }
     @GetMapping("/moderators")
@@ -20,8 +21,8 @@ public class ModeratorController {
     }
     @PostMapping("/moderators")
     @PreAuthorize("hasAuthority('admins')")
-    public void addModerator(@RequestBody User userData){
-         service.addModerator(userData);
+    public void addModerator(@RequestBody AuthenticationRequest request){
+         service.addModerator(request);
     }
     @GetMapping("/moderators/{id}")
     @PreAuthorize("hasAuthority('admins')")
@@ -32,5 +33,9 @@ public class ModeratorController {
     @PreAuthorize("hasAuthority('admins')")
     public void deleteModeratorById(@PathVariable Long id){
         service.removeModerator(id);
+    }
+    @PostMapping("/moderators")
+    public void addUser(@RequestBody AuthenticationRequest request){
+        service.addUser(request);
     }
 }

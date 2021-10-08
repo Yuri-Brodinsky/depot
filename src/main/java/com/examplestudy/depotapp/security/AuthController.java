@@ -1,16 +1,13 @@
 package com.examplestudy.depotapp.security;
 
-import com.examplestudy.depotapp.user.User;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/auth")
+@RequestMapping("api/v1/auth")
 public class AuthController {
-    private final UserDetailServiceImpl service;
-    public AuthController(UserDetailServiceImpl service){
+    private final UserDetailsServiceImpl service;
+    public AuthController(UserDetailsServiceImpl service){
         this.service = service;
     }
     @GetMapping("/login")
@@ -22,14 +19,8 @@ public class AuthController {
         return "success";
     }
     @GetMapping("/registration")
-    public String getRegisterPage(Model model){
-        User user = new User();
-        model.addAttribute("user",user);
+    public String getRegisterPage(){
         return "registration";
-    }
-    @PostMapping("/registration")
-    public void addUser(@ModelAttribute User user){
-        service.addUser(user);
     }
    
 }

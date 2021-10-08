@@ -11,8 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class TripServiceTest {
@@ -34,5 +33,15 @@ class TripServiceTest {
         TripService service = new TripService(repository);
         Assertions.assertDoesNotThrow(()->service.findById(2L));
     }
+    @Test
+    public void shouldCallSave(){
+        Trip trip = new Trip();
+        trip.setId(2L);
+        when(repository.findById(2L)).thenReturn(Optional.of(trip));
+        TripService service = new TripService(repository);
+        service.update(trip);
+        verify(repository,times(1)).save(trip);
+    }
+
 
 }

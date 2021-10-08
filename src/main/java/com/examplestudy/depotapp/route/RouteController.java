@@ -1,7 +1,5 @@
 package com.examplestudy.depotapp.route;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 

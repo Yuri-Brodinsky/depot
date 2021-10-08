@@ -2,8 +2,6 @@ package com.examplestudy.depotapp.security;
 
 import com.examplestudy.depotapp.response.AlreadyExistException;
 import com.examplestudy.depotapp.response.NotFoundException;
-import com.examplestudy.depotapp.security.Role;
-import com.examplestudy.depotapp.security.SecurityUser;
 import com.examplestudy.depotapp.user.User;
 import com.examplestudy.depotapp.user.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,25 +15,27 @@ import java.util.List;
 
 
 @Service
-public class UserDetailServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
     private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
-    public UserDetailServiceImpl(UserRepository repository){
+
+    public UserDetailsServiceImpl(UserRepository repository){
         this.repository = repository;
         passwordEncoder = new BCryptPasswordEncoder(12);
+
     }
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
         User user = repository.findByLogin(login);
-        UserDetails securityUser = SecurityUser.userDetailsFromUser(user);
+        UserDetails securityUser = UserDetailsImpl.userDetailsFromUser(user);
        return securityUser;
     }
-    public void addUser( User userData){
+    public void addUser( AuthenticationRequest request){
         User user = new User();
-        User res = repository.findByLogin(userData.getLogin());
+        User res = repository.findByLogin(request.getLogin());
         if(res==null){
-        user.setLogin(userData.getLogin());
-        user.setPassword(passwordEncoder.encode(userData.getPassword()));
+        user.setLogin(request.getLogin());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole(Role.USER);
         repository.save(user);
 
@@ -43,12 +43,12 @@ public class UserDetailServiceImpl implements UserDetailsService {
         else throw new AlreadyExistException("this login is busy");
 
     }
-    public void addModerator( User userData){
+    public void addModerator( AuthenticationRequest request){
         User user = new User();
-        User res = repository.findByLogin(userData.getLogin());
+        User res = repository.findByLogin(request.getLogin());
         if(res==null){
-            user.setLogin(userData.getLogin());
-            user.setPassword(passwordEncoder.encode(userData.getPassword()));
+            user.setLogin(request.getLogin());
+            user.setPassword(passwordEncoder.encode(request.getPassword()));
             user.setRole(Role.MODERATOR);
             repository.save(user);
         }
@@ -66,4 +66,5 @@ public class UserDetailServiceImpl implements UserDetailsService {
         if(user.getRole()==Role.MODERATOR) return user;
         return null;
     }
+
 }
